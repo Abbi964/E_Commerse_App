@@ -16,7 +16,8 @@ app.use(bodyParser.json())
 
 // adding routes
 const shopRoutes = require('./routes/shop');
-const userRoutes = require('./routes/user')
+const userRoutes = require('./routes/user');
+const adminRoutes = require('./routes/admin')
 
 
 // routing requests
@@ -26,7 +27,7 @@ app.get('/',(req,res,next)=>{
 
 app.use('/shop',shopRoutes)
 app.use('/user',userRoutes);
-
+app.use('/admin',adminRoutes)
 
 mongoose.connect(`mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@cluster0.vghsxbb.mongodb.net/shop2?retryWrites=true`)
     .then(()=>{
