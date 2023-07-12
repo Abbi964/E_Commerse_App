@@ -24,6 +24,10 @@ async function submit(e){
             // posting obj to server
             let response = await axios.post('http://localhost:3000/admin/add-product',bookObj,{headers:{'Authorization':token}})
 
+            if(response.data.success){
+                window.location.href = '/admin/products'
+            }
+
         }
         catch(err){
             console.log(err)

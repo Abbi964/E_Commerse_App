@@ -13,7 +13,16 @@ const userSchema = new Schema({
   password : {
     type : String,
     required : true
-  }
+  },
+  cart: {
+    items: [{
+      productId: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
+      quantity: { type: Number, required: true }
+    }]
+  },
+  products: [{
+    productId : { type: Schema.Types.ObjectId, ref: 'Product', required: true }
+  }]
 })
 
 
