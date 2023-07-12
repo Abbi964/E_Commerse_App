@@ -26,4 +26,35 @@ const userSchema = new Schema({
 })
 
 
+userSchema.methods.deleteFromProductsArray = function(prodId){
+  try{
+    // finding index of product to delete
+    let prodIndex = this.products.findIndex(ele => {
+      return ele.productId.toString() === prodId.toString()
+    })
+  
+    if(prodIndex >= 0){
+      // if product exists then deleting it
+  
+      updatedProdsArray = [...this.products];
+      updatedProdsArray.splice(prodIndex,1)
+      this.products = [...updatedProdsArray]
+  
+      // now saving user
+      this.save()
+        .then(result => { 
+          console.log(result) 
+          return true
+        })
+        .catch(err => console.log(err))
+    }
+    else{
+      return false
+    }
+  }
+  catch(err){
+    console.log(err)
+  }
+}
+
 module.exports = mongoose.model('User', userSchema);

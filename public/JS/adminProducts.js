@@ -23,6 +23,20 @@ async function loadProducts(e) {
 }
 
 
+gridDiv.addEventListener('click',async(e)=>{
+    let token = localStorage.getItem('token')
+    // if clicks on delete btn delete the product
+    if(e.target.className == 'delete btn'){
+        // first getting the productId
+        let productId = e.target.id
+        await axios.get(`http://localhost:3000/admin/delete-product/${productId}`,
+        { headers: { 'Authorization': token }})
+
+        window.location.href = '/admin/products'
+    }
+})
+
+
 //---------------------------------------------------//
 
 function makeArticle(product) {
@@ -48,12 +62,10 @@ function makeArticle(product) {
 </div>
 <div class="card__actions">
     <a href="/admin/edit-product/${product.productId._id}" class="btn">Edit</a>
-    <form action="/admin/delete-product" method="POST">
-        <input type="hidden" value="${product.productId._id}" name="productId">
-        <button class="btn" type="submit">Delete</button>
-    </form>
+    <button class="delete btn" id="${product.productId._id}" type="button">Delete</button>
 
 </div>`
 
     return artcl
 }
+

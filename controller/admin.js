@@ -1,6 +1,8 @@
 const path = require('path')
+const jwt = require('jsonwebtoken')
 
 const Product = require('../models/product');
+const User = require('../models/user')
 
 exports.getAddProduct = (req, res, next) => {
     res.sendFile(path.join(__dirname, '..', 'views', 'addProduct.html'))
@@ -95,3 +97,20 @@ exports.postEditProduct = async(req,res,next)=>{
         console.log(err)
     }
 }
+
+exports.getDeleteProduct = async(req, res, next) => {
+    try{
+        const prodId = req.params.productId;
+        const user = req.user
+
+        // deleting product from user's products array
+         user.deleteFromProductsArray(prodId)
+    
+         await Product.findByIdAndDelete(prodId)
+         res.json({success : true})
+    }
+    catch(err){
+        console.log(err)
+    }
+  };
+  
