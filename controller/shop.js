@@ -23,3 +23,22 @@ exports.getAllProducts = async(req,res,next)=>{
         console.log(err)
     }
 }
+
+exports.getProduct = async(req,res,next)=>{
+    try{
+        const productId = req.params.productId;
+
+        // now finding the product
+        let product = await Product.findOne({_id : productId})
+
+        if(product){
+            res.json({product : product, success : true})
+        }
+        else{
+            res.json({success : false})
+        }
+    }
+    catch(err){
+        console.log(err)
+    }
+}

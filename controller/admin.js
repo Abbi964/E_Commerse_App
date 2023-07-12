@@ -1,7 +1,6 @@
 const path = require('path')
 
 const Product = require('../models/product');
-const { json } = require('body-parser');
 
 exports.getAddProduct = (req, res, next) => {
     res.sendFile(path.join(__dirname, '..', 'views', 'addProduct.html'))
@@ -60,5 +59,39 @@ exports.getAdminProducts = async(req,res,next)=>{
     }
     catch(err){
         conosle.log(err)
+    }
+}
+
+exports.getEditProduct = (req,res,next)=>{
+    res.sendFile(path.join(__dirname,'..','views','editProduct.html'))
+}
+
+exports.postEditProduct = async(req,res,next)=>{
+    try {
+        const title = req.body.title;
+        const imageUrl = req.body.imageUrl;
+        const price = req.body.price;
+        const description = req.body.description;
+        const prodId = req.body.productId;
+
+        // first finding the product in DB
+        let product = await Product.findOne({_id : prodId});
+        if(product){
+            // if product exists then updating it and then saving it
+            product.title = title;
+            product.imageUrl = imageUrl;
+            product.price = price;
+            product.description = description;
+
+            await product.save()
+
+            res.json({success : true})
+        }
+        else{
+            res.json({success : false})
+        }
+    }
+    catch(err){
+        console.log(err)
     }
 }

@@ -26,6 +26,8 @@ async function loadProducts(e) {
 //---------------------------------------------------//
 
 function makeArticle(product) {
+    let token = localStorage.getItem('token')
+
     let artcl = document.createElement('article');
     artcl.className = 'card product-item'
     artcl.innerHTML = `<header class="card__header">

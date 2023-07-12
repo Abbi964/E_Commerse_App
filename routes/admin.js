@@ -13,4 +13,8 @@ router.get('/products', adminController.getAdminProductsPage);
 
 router.get('/adminProducts',userAuthenticaltion.authenticate,adminController.getAdminProducts)
 
+router.get('/edit-product/:productId',adminController.getEditProduct);
+
+router.post('/edit-product',userAuthenticaltion.authenticate,adminController.postEditProduct);
+
 module.exports = router

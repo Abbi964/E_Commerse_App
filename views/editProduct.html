@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Product</title>
+    <title>Edit Product</title>
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/forms.css">
     <link rel="stylesheet" href="/css/product.css">
@@ -60,15 +60,15 @@
                 <label for="description">Description</label>
                 <textarea name="description" id="description" rows="5"></textarea>
             </div>
-            <input type="hidden" value="" name="productId">
+            <input type="hidden" value="" name="productId" id="productId">
 
-            <button class="btn" id="submitBtn" type="submit">Add Product
+            <button class="btn" id="submitBtn" type="submit">Edit Product
             </button>
         </form>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="/js/addProduct.js"></script>
+    <script src="/js/editProduct.js"></script>
 </body>
 
 </html>
