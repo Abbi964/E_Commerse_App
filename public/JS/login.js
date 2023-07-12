@@ -24,7 +24,7 @@ async function SubmitForm(e){
             // saving the json web token in local storage
             localStorage.setItem('token',response.data.token)
             
-            window.location.href = '/shop/main'
+            window.location.href = '/shop'
         }
         catch(err){
             // showing errs on DOM
