@@ -57,4 +57,36 @@ userSchema.methods.deleteFromProductsArray = function(prodId){
   }
 }
 
+userSchema.methods.addToCart = function (product) {
+  // checking if product is already in cart or not
+  const cartProductIndex = this.cart.items.findIndex(cp => {
+    return cp.productId.toString() === product._id.toString()
+  })
+
+  let newQuantity = 1;
+  let updatedCartItem = [...this.cart.items]
+
+  if (cartProductIndex >= 0) {
+    // if product already exist in cart then increasing quantity
+    newQuantity = this.cart.items[cartProductIndex].quantity + 1
+    updatedCartItem[cartProductIndex].quantity = newQuantity;
+  }
+  else {
+    // if product does not exist than adding product
+    updatedCartItem.push({
+      productId: product._id,
+      quantity: newQuantity,
+    })
+  }
+
+  const updatedCart = { items: updatedCartItem }
+
+  // updating the cart
+  this.cart = { ...updatedCart }
+  return this.save()
+    .then(result => { console.log(result) })
+    .catch(err => console.log(err))
+
+}
+
 module.exports = mongoose.model('User', userSchema);

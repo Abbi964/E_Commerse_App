@@ -11,4 +11,8 @@ router.get('/allProducts',shopController.getAllProducts);
 
 router.get('/product/:productId',userAuthenticaltion.authenticate,shopController.getProduct)
 
+router.get('/products',shopController.getProductsPage);
+
+router.post('/addToCart',userAuthenticaltion.authenticate,shopController.addToCart)
+
 module.exports = router
