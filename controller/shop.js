@@ -1,7 +1,7 @@
 const path = require("path")
 
 const Product = require('../models/product')
-
+const Order = require('../models/order');
 
 exports.getShop = (req,res,next)=>{
     res.sendFile(path.join(__dirname,'../','views','shop.html'))
@@ -106,4 +106,42 @@ exports.postCartDeleteItem = async(req,res,next)=>{
 
 exports.getProductDetailPage = (req,res,next)=>{
     res.sendFile(path.join(__dirname,'..','views','productDetail.html'))
+}
+
+exports.postCreateOrder = async(req,res,next)=>{
+    try{
+        const user = req.user;
+        // creating order
+        await user.createOrder();
+
+        res.json({success : true})
+    }
+    catch(err){
+        console.log(err)
+    }
+
+} 
+
+exports.getOrderPage = (req,res,next)=>{
+    res.sendFile(path.join(__dirname,'..','views','orders.html'))
+}
+
+exports.getAllOrders = async(req,res,next)=>{
+    try{
+        // getting all orders where userId is req.user._id
+        let orders = await Order.find({userId : req.user._id});
+
+        // populating with product details
+        let popOrders = await Promise.all(
+            orders.map(async (order) => {
+              let popOrder = await order.populate('products.productId');
+              return popOrder;
+            })
+        );
+
+        res.json({orders : popOrders, success : true})
+    }
+    catch(err){
+        console.log(err)
+    }
 }

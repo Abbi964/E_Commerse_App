@@ -21,6 +21,12 @@ router.get('/cartItems',userAuthenticaltion.authenticate,shopController.getCartI
 
 router.post('/cart-delete-item',userAuthenticaltion.authenticate,shopController.postCartDeleteItem)
 
-router.get('/productDetail/:productId',shopController.getProductDetailPage)
+router.get('/productDetail/:productId',shopController.getProductDetailPage);
+
+router.get('/create-order',userAuthenticaltion.authenticate,shopController.postCreateOrder)
+
+router.get('/orders',shopController.getOrderPage);
+
+router.get('/getAllOrders',userAuthenticaltion.authenticate,shopController.getAllOrders);
 
 module.exports = router

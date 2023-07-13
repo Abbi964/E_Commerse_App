@@ -109,4 +109,25 @@ userSchema.methods.deleteProductFromCart = function (prodId) {
     .catch(err => console.log(err))
 }
 
+const Order = require('./order')
+
+userSchema.methods.createOrder = function(){
+  // first getting products and quantity from cart
+  let prodArr = [...this.cart.items]
+
+  // making a new order instence
+  let order = new Order({
+    products : prodArr,
+    userId : this._id
+  })
+
+  return order.save()
+    .then(result =>{
+      // clearing the user cart 
+      this.cart = {items : []};
+      return this.save()
+    })
+    .catch(err => console.log(err))
+}
+
 module.exports = mongoose.model('User', userSchema);

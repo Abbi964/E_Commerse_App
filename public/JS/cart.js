@@ -1,4 +1,5 @@
 const cartItemUl = document.querySelector('.cart__item-list');
+const orderBtn = document.getElementById('orderBtn')
 
 window.addEventListener('DOMContentLoaded',loadCart);
 
@@ -36,6 +37,23 @@ cartItemUl.addEventListener('click',async(e)=>{
     }
 })
 
+//---------- clicking on order now button    ----------//
+orderBtn.addEventListener('click',async(e)=>{
+    try{
+        let token = localStorage.getItem('token')
+    
+        // creating order
+        let result = await axios.get('http://localhost:3000/shop/create-order',
+        {headers: { 'Authorization': token } })
+    
+        if(result.data.success){
+            window.location.href = '/shop/orders'
+        }
+    }
+    catch(err){
+        console.log(err)
+    }
+})
 
 
 
