@@ -70,3 +70,40 @@ exports.addToCart = async(req,res,next)=>{
         console.log(err)
     }
 }
+
+exports.getCart = (req, res, next)=>{
+    res.sendFile(path.join(__dirname,'..','views','cart.html'))
+}
+
+exports.getCartItems = async(req,res,next)=>{
+    try{
+        const user = req.user;
+        // getting cart items
+        let popUser = await user.populate('cart.items.productId');
+        let cartItems = [...popUser.cart.items]
+
+        res.json({cartItems})
+    }
+    catch(err){
+        console.log(err)
+    }
+
+}
+
+exports.postCartDeleteItem = async(req,res,next)=>{
+    try{
+        const user = req.user;
+        const productId = req.body.productId;
+    
+        await user.deleteProductFromCart(productId);
+
+        res.json({success : true})
+    }
+    catch(err){
+        console.log(err)
+    }
+}
+
+exports.getProductDetailPage = (req,res,next)=>{
+    res.sendFile(path.join(__dirname,'..','views','productDetail.html'))
+}

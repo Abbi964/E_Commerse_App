@@ -4,14 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Products</title>
+    <title>Cart</title>
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/forms.css">
     <link rel="stylesheet" href="/css/product.css">
+    <link rel="stylesheet" href="/css/cart.css">
 </head>
 
 <body>
-    <!-----------------    Navigation bar   ---------------->
+    <!------------  navigation     ------------>
     <div class="backdrop"></div>
     <header class="main-header">
         <button id="side-menu-toggle">Menu</button>
@@ -21,10 +22,10 @@
                     <a class="" href="/shop/">Shop</a>
                 </li>
                 <li class="main-header__item">
-                    <a class="active" href="/shop/products">Products</a>
+                    <a class="" href="/shop/products">Products</a>
                 </li>
                 <li class="main-header__item">
-                    <a class="" href="/shop/cart">Cart</a>
+                    <a class="active" href="/shop/cart">Cart</a>
                 </li>
                 <li class="main-header__item">
                     <a class="" href="/user/orders">Orders</a>
@@ -43,13 +44,20 @@
         </nav>
     </header>
 
-    <!---------------  main    -------------------->
+    <!------------------- cart items   ------------------>
     <main>
-            <div class="grid">
-            </div>
+        <ul class="cart__item-list">
+        </ul>
+        <hr>
+        <div class="centered">
+            <form action="/create-order" method="POST">
+                <button type="submit" class="btn">Order Now!</button>
+            </form>
+        </div>
     </main>
-
+        
+    <script src="/JS/cart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="/JS/products.js"></script>
 </body>
+
 </html>

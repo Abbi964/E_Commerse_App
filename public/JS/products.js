@@ -22,7 +22,7 @@ async function loadProducts(e) {
     }
 }
 
-//-------- for addtocart option
+//-------- for addtocart option and details -------//
 gridDiv.addEventListener('click',async(e)=>{
     try{
         let token = localStorage.getItem('token')
@@ -37,6 +37,12 @@ gridDiv.addEventListener('click',async(e)=>{
             else{
                 alert(result.data.msg)
             }
+        }
+        // if details btn is clicked
+        if(e.target.className == 'details btn'){
+            let prodId = e.target.id;
+            
+            window.location.href = `/shop/productDetail/${prodId}`
         }
 
     }
@@ -70,7 +76,7 @@ function makeArticle(product) {
     </p>
 </div>
 <div class="card__actions">
-    <a href="shop/product/${product._id}" class="btn">Details</a>
+    <button class="details btn" id="${product._id}" type="button">Details</button>
     <button class="addToCart btn" id="${product._id}" type="button">Add to Cart</button>
 </div>`
 

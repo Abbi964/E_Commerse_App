@@ -89,4 +89,24 @@ userSchema.methods.addToCart = function (product) {
 
 }
 
+userSchema.methods.deleteProductFromCart = function (prodId) {
+  // finding index of product to delete
+  let prodIndex = this.cart.items.findIndex(ele => {
+    return ele.productId.toString() === prodId.toString()
+  })
+
+  // now removing product from that index
+  let updatedItemsArray = [...this.cart.items]
+  updatedItemsArray.splice(prodIndex, 1);
+
+  let updatedCart = { items: updatedItemsArray }
+
+  // now updating the cart
+
+  this.cart = {...updatedCart}
+  return this.save()
+    .then(result => { console.log(result) })
+    .catch(err => console.log(err))
+}
+
 module.exports = mongoose.model('User', userSchema);

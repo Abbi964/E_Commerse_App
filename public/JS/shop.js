@@ -21,6 +21,25 @@ async function loadProducts(e) {
     }
 }
 
+//------------- for details btn -------------------------//
+
+gridDiv.addEventListener('click',async(e)=>{
+    try{
+        // if details btn is clicked
+        if(e.target.className == 'details btn'){
+            let prodId = e.target.id;
+            
+            window.location.href = `/shop/productDetail/${prodId}`
+        }
+
+    }
+    catch(err){
+        console.log(err)
+    }
+})
+
+
+
 
 //---------------------------------------------------//
 
@@ -44,7 +63,7 @@ function makeArticle(product) {
     </p>
 </div>
 <div class="card__actions">
-    <a href="shop/product/${product._id}" class="btn">Details</a>
+    <button class="details btn" id="${product._id}" type="button">Details</button>
 </div>`
 
     return artcl
